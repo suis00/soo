@@ -1,34 +1,20 @@
-package com.example.myapplication;
+package com.example.dice_project;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+import java.util.Random;
+import android.widget.ImageView;
+import android.widget.Button;
+import android.view.View;
 public class MainActivity extends AppCompatActivity {
-
-
-    //edittext eText;
-    //password ePassword;
-    //phone ePhone;
-    //button eButton;
-    //textveiw eTextView;
-
-    private EditText eText;
-    private EditText ePassword;
-    private EditText ePhone;
-    private Button eButton;
-    private TextView eTextView;
-    private TextView ePasswordView;
-    private TextView ePhoneView;
-
+    private ImageView imageView;
+    private Button button;
+    private Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,25 +27,18 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        eText = (EditText) findViewById(R.id.edittext);
-        ePassword = (EditText) findViewById(R.id.password);
-        ePhone = (EditText) findViewById(R.id.phone);
-        eButton = (Button) findViewById(R.id.button);
-        eTextView = (TextView) findViewById(R.id.textView);
-        ePasswordView = (TextView) findViewById(R.id.passwordView);
-        ePhoneView = (TextView) findViewById(R.id.PhoneView);
+        imageView = findViewById(R.id.imageView);
+        button = findViewById(R.id.rollbutton);
 
+        button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                rollDice();
+            }
+        });
     }
-
-    public void onClicked(View view) {
-        String str = eText.getText().toString();
-        eTextView.setText("아이디: "+ str);
-
-        String password = ePassword.getText().toString();
-        ePasswordView.setText("패스워드: "+password);
-
-        String phone = ePhone.getText().toString();
-        ePhoneView.setText("전화 번호: "+phone);
-
+    private void rollDice() {
+        int number = random.nextInt(6) + 1;
+        int resId = getResources().getIdentifier("dice" + number, "drawable", getPackageName());
+        imageView.setImageResource(resId);
     }
 }
